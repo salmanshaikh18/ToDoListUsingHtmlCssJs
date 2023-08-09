@@ -4,14 +4,21 @@ const userNameTextField = document.getElementById('userName')
 
 let usersArray = []
 
-localStorage.getItem('users')
+let objStr = localStorage.getItem('users')
 
-
+if (objStr != null) {
+    usersArray = JSON.parse(objStr)
+}
 
 addUserBtn.addEventListener('click', () => {
     const userName = userNameTextField.value;
     usersArray.push({'name': userName})
     saveInfo(usersArray)
+    if (userNameTextField.value === 'delete') {
+        localStorage.clear()
+    }
+    userNameTextField.value = ""
+
 })
 
 function saveInfo(usersArray) {
@@ -22,7 +29,10 @@ function saveInfo(usersArray) {
 }
 
 function displayInfo() {
-
+    let statement = '';
+    usersArray.forEach((user) => {
+        
+    })
 }
 
 function editInfo() {
