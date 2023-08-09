@@ -1,10 +1,13 @@
 const addUserBtn = document.getElementById('addUserBtn')
 
+const btnText = addUserBtn.innerText
+
 const userNameTextField = document.getElementById('userName')
 
 let recordDisplay = document.getElementById('records')
 
 let usersArray = []
+let edit_id = null
 
 let objStr = localStorage.getItem('users')
 
@@ -16,12 +19,20 @@ displayInfo();
 
 addUserBtn.addEventListener('click', () => {
     const userName = userNameTextField.value;
-    usersArray.push({'name': userName})
+    if (edit_id != null) {
+        // edit
+        usersArray.splice(edit_id,1,{'name': userName})
+        edit_id = null
+    } else {
+        // insert
+        usersArray.push({'name': userName})
+    }
     saveInfo(usersArray)
     if (userNameTextField.value === 'delete') {
         localStorage.clear()
     }
     userNameTextField.value = ""
+    addUserBtn.innerText = btnText
 
 })
 
@@ -49,7 +60,9 @@ function displayInfo() {
 }
 
 function editInfo(id) {
-    
+    edit_id = id;
+    userNameTextField.value = usersArray[id].name
+    addUserBtn.innerText ='Save Changes';
 }
 
 function deleteInfo(id) {
