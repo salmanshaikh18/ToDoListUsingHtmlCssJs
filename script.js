@@ -15,7 +15,7 @@ if (objStr != null) {
     usersArray = JSON.parse(objStr)
 }
 
-displayInfo();
+displayInfo()
 
 addUserBtn.addEventListener('click', () => {
     const userName = userNameTextField.value;
@@ -68,5 +68,4 @@ function editInfo(id) {
 function deleteInfo(id) {
     usersArray.splice(id,1)
     saveInfo(usersArray)
-    displayInfo()
 }
